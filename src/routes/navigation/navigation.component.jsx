@@ -11,7 +11,11 @@ import {
     NavigationContainer,
     LogoContainer,
     NavLink,
-    NavLinks
+    NavLinks,
+    NavMenu,
+    NavFooter,
+    NavFooterItem,
+    NavSpacer
 } from './navigation.styles.jsx';
 
 const Navigation = () => {
@@ -23,16 +27,25 @@ const Navigation = () => {
                 <LogoContainer to='/'>
                     <CrwnLogo className='logo' />
                 </LogoContainer>
+                <NavMenu>Hi, Thomas</NavMenu>
                 <NavLinks>
-                    <NavLink to='/shop'>SHOP</NavLink>
+                    <NavLink to='/dashboard'>Dashboard</NavLink>
+                    <NavLink to='/recurring'>Recurring</NavLink>
+                    <NavLink to='/spending'>Spending</NavLink>
+                    <NavLink to='/networth'>Net Worth</NavLink>
+                    <NavLink to='/transactions'>Transactions</NavLink>
                     {currentUser ? (
                         <NavLink as='span' onClick={signOutUser}>
-                            SIGN OUT
+                            Sign Out
                         </NavLink>
                     ) : (
-                        <NavLink to='/auth'>SIGN IN</NavLink>
+                        <NavLink to='/auth'>Sign In</NavLink>
                     )}
                 </NavLinks>
+                <NavSpacer />
+                <NavFooter>
+                    <NavFooterItem>Chat with us</NavFooterItem>
+                </NavFooter>
             </NavigationContainer>
             <Outlet />
         </Fragment>
