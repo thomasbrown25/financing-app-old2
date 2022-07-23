@@ -3,16 +3,18 @@ import {
     CardContainer,
     CardHeader,
     CardHeaderContainer,
+    CurrentSpendAmount,
+    SpendAmount,
     CurrentSpend
 } from './dashboard-top-card.styles';
 
-const DashboardTopCard = ({ header, body }) => {
+const DashboardTopCard = () => {
     return (
         <CardContainer>
             <CardBody>
                 <CardHeaderContainer>
                     <div>
-                        <CurrentSpend></CurrentSpend>
+                        <CurrentSpend>Current spend this month</CurrentSpend>
                         <CurrentSpendAmount>
                             <SpendAmount>$320</SpendAmount>
                         </CurrentSpendAmount>

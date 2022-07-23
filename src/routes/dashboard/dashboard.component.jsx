@@ -1,5 +1,7 @@
 import Card from '../../components/card/card.component';
-import { DashboardContainer } from '../../components/dashboard/dashboard.styles';
+import DashboardTopCard from '../../components/dashboard-card/dashboard-top-card.component';
+import AccountCard from '../../components/dashboard/account-card.component';
+import { DashboardContainer } from './dashboard.styles';
 import Layout from '../../components/layout/layout.component';
 import { MainColumn, SideColumn } from '../../components/layout/layout.styles';
 
@@ -8,11 +10,10 @@ const Dashboard = () => {
         <Layout>
             <DashboardContainer>
                 <MainColumn>
-                    <div>main column</div>
-                    <Card header='card header' body='card body'></Card>
+                    <DashboardTopCard />
                 </MainColumn>
                 <SideColumn>
-                    <div>Side column</div>
+                    <AccountCard />
                 </SideColumn>
             </DashboardContainer>
         </Layout>

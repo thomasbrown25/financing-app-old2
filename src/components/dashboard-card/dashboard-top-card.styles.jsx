@@ -10,15 +10,6 @@ export const CardContainer = styled.div`
     position: relative;
 `;
 
-export const CardHeader = styled.div`
-    display: flex;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    -webkit-box-align: center;
-    align-items: center;
-    margin-bottom: 20px;
-`;
-
 export const CardBody = styled.div`
     background-color: rgb(0, 89, 210);
     border-radius: 12px;
@@ -30,7 +21,6 @@ export const CardBody = styled.div`
 `;
 
 export const CardHeaderContainer = styled.div`
-    display: flex;
     -webkit-box-pack: justify;
     justify-content: space-between;
     align-items: flex-start;

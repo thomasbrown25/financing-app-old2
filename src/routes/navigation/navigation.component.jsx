@@ -32,7 +32,7 @@ const Navigation = () => {
                     <NavLink to='/dashboard'>Dashboard</NavLink>
                     <NavLink to='/recurring'>Recurring</NavLink>
                     <NavLink to='/spending'>Spending</NavLink>
-                    <NavLink to='/networth'>Net Worth</NavLink>
+                    <NavLink to='/accounts'>Accounts</NavLink>
                     <NavLink to='/transactions'>Transactions</NavLink>
                     {currentUser ? (
                         <NavLink as='span' onClick={signOutUser}>
