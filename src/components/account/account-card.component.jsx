@@ -1,5 +1,4 @@
 import {
-    AccountCardContainer,
     Card,
     CardBody,
     CardBodyGrid,
@@ -10,12 +9,15 @@ import {
     Amount,
     CardHeaderText,
     CardHeaderUpdatedContainer,
-    CardHeaderUpdatedText
+    CardHeaderUpdatedText,
+    AmountSpan
 } from './account-card.styles';
+
+import { CardContainer } from '../card/card.styles';
 
 const AccountCard = () => {
     return (
-        <AccountCardContainer>
+        <CardContainer>
             <Card>
                 <CardHeader>
                     <CardHeaderText>Accounts</CardHeaderText>
@@ -30,13 +32,31 @@ const AccountCard = () => {
                         <Row>
                             <Cell>
                                 <Title>Checking</Title>
-                                <Amount>$915</Amount>
+                                <Amount>
+                                    <AmountSpan>$32,417</AmountSpan>
+                                </Amount>
+                            </Cell>
+                        </Row>
+                        <Row>
+                            <Cell>
+                                <Title>Savings</Title>
+                                <Amount>
+                                    <AmountSpan>Add +</AmountSpan>
+                                </Amount>
+                            </Cell>
+                        </Row>
+                        <Row>
+                            <Cell>
+                                <Title>Credit Cards</Title>
+                                <Amount>
+                                    <AmountSpan>Add +</AmountSpan>
+                                </Amount>
                             </Cell>
                         </Row>
                     </CardBodyGrid>
                 </CardBody>
             </Card>
-        </AccountCardContainer>
+        </CardContainer>
     );
 };
 

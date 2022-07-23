@@ -1,12 +1,13 @@
 import {
     CardBody,
-    CardContainer,
     CardHeader,
     CardHeaderContainer,
     CurrentSpendAmount,
     SpendAmount,
     CurrentSpend
 } from './dashboard-top-card.styles';
+
+import { CardContainer } from '../card/card.styles';
 
 const DashboardTopCard = () => {
     return (

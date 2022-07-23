@@ -1,5 +1,18 @@
 import styled from 'styled-components';
 
+export const MainContainer = styled.main`
+    display: flex;
+    flex-direction: row;
+    margin-left: 450px;
+`;
+
+export const Container = styled.div`
+    position: absolute;
+    inset: 0px;
+    display: flex;
+    flex-direction: row;
+`;
+
 export const LayoutContainer = styled.div`
     margin-left: 240px;
     width: 100%;
@@ -49,7 +62,7 @@ export const HeaderText = styled.span`
     line-height: 1.12;
     transition: color 150ms ease 0s;
     color: rgb(28, 27, 26);
-    font-weight: 500;
+    font-weight: bold;
 `;
 
 export const MainColumn = styled.div`

@@ -1,15 +1,5 @@
 import styled from 'styled-components';
 
-export const CardContainer = styled.div`
-    margin-bottom: 32px;
-    display: flex;
-    flex-direction: column;
-    min-width: 0px;
-    -webkit-box-align: stretch;
-    align-items: stretch;
-    position: relative;
-`;
-
 export const CardBody = styled.div`
     background-color: rgb(0, 89, 210);
     border-radius: 12px;
@@ -48,7 +38,7 @@ export const SpendAmount = styled.span`
     line-height: 1.12;
     transition: color 150ms ease 0s;
     color: rgb(255, 255, 255);
-    font-weight: 500;
+    font-weight: bold;
 `;
 
 export const LastMonthComparisonContainer = styled.div`
@@ -64,5 +54,5 @@ export const ComparisonAmount = styled.span`
     line-height: 1.12;
     transition: color 150ms ease 0s;
     color: rgb(255, 255, 255);
-    font-weight: 500;
+    font-weight: bold;
 `;
