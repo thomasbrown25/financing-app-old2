@@ -56,5 +56,5 @@ export const Item = styled.span`
     font-size: 14px;
     line-height: 1.3;
     transition: color 150ms ease 0s;
-    font-weight: bold;
+    font-weight: 700;
 `;

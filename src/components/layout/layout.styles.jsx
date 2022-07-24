@@ -62,11 +62,18 @@ export const HeaderText = styled.span`
     line-height: 1.12;
     transition: color 150ms ease 0s;
     color: rgb(28, 27, 26);
-    font-weight: bold;
+    font-weight: 700;
 `;
 
 export const MainColumn = styled.div`
     min-width: 0px;
+`;
+
+export const MainContentContainer = styled.main`
+    display: grid;
+    grid-template-columns: 2fr 370px;
+    gap: 40px;
+    margin: auto;
 `;
 
 export const SideColumn = styled.div`

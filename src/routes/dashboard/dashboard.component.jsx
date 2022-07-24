@@ -1,15 +1,18 @@
 import DashboardTopCard from '../../components/dashboard-card/dashboard-top-card.component';
 import AccountCard from '../../components/account/account-card.component';
-import { DashboardContainer } from './dashboard.styles';
 import Layout from '../../components/layout/layout.component';
-import { MainColumn, SideColumn } from '../../components/layout/layout.styles';
+import {
+    MainColumn,
+    SideColumn,
+    MainContentContainer
+} from '../../components/layout/layout.styles';
 import RecentTransactions from '../../components/recent-transactions/recent-transactions.component';
 import Upcoming from '../../components/upcoming/upcoming.component';
 
 const Dashboard = () => {
     return (
-        <Layout>
-            <DashboardContainer>
+        <Layout title={'Good evening, Thomas'}>
+            <MainContentContainer>
                 <MainColumn>
                     <DashboardTopCard />
                     <RecentTransactions />
@@ -18,7 +21,7 @@ const Dashboard = () => {
                     <AccountCard />
                     <Upcoming />
                 </SideColumn>
-            </DashboardContainer>
+            </MainContentContainer>
         </Layout>
     );
 };

@@ -26,7 +26,7 @@ export const CardHeaderText = styled.span`
     line-height: 1.4;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    font-weight: bold;
+    font-weight: 700;
     transition: color 150ms ease 0s;
     color: rgb(28, 27, 26);
 `;
@@ -103,5 +103,5 @@ export const AmountSpan = styled.span`
     transition: color 150ms ease 0s;
     text-align: right;
     color: rgb(28, 27, 26);
-    font-weight: bold;
+    font-weight: 700;
 `;

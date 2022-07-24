@@ -5,6 +5,7 @@ import {
     CardBody,
     Grid
 } from '../card/card.styles';
+import RecentTransaction from './recent-transaction.component';
 import { Cell, HeaderSubText, Item, Row } from './recent-transactions.styles';
 
 const RecentTransactions = () => {
@@ -23,7 +24,7 @@ const RecentTransactions = () => {
                             <Item>Date</Item>
                         </Cell>
                         <Cell>
-                            <Item>"Logo"</Item>
+                            <Item></Item>
                         </Cell>
                         <Cell>
                             <Item>Name</Item>
@@ -38,6 +39,14 @@ const RecentTransactions = () => {
                             <Item>Amount</Item>
                         </Cell>
                     </Row>
+                    <RecentTransaction
+                        date={'7/23'}
+                        name={'Blizzard Entertainment'}
+                        status={'| pending'}
+                        logo={''}
+                        category={'Entertainment & Rec.'}
+                        amount={'$9.99'}
+                    />
                 </Grid>
             </CardBody>
         </CardContainer>

@@ -38,7 +38,7 @@ export const SpendAmount = styled.span`
     line-height: 1.12;
     transition: color 150ms ease 0s;
     color: rgb(255, 255, 255);
-    font-weight: bold;
+    font-weight: 700;
 `;
 
 export const LastMonthComparisonContainer = styled.div`
@@ -54,5 +54,5 @@ export const ComparisonAmount = styled.span`
     line-height: 1.12;
     transition: color 150ms ease 0s;
     color: rgb(255, 255, 255);
-    font-weight: bold;
+    font-weight: 700;
 `;

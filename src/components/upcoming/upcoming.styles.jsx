@@ -86,7 +86,7 @@ export const ItemAmountText = styled.span`
     transition: color 150ms ease 0s;
     text-align: right;
     color: rgb(28, 27, 26);
-    font-weight: bold;
+    font-weight: 700;
 `;
 
 export const ItemLogo = styled.div`

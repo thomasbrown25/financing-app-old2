@@ -9,7 +9,7 @@ import {
     Container
 } from './layout.styles';
 
-const Layout = ({ children }) => {
+const Layout = ({ children, title }) => {
     return (
         <MainContainer>
             <Container>
@@ -18,9 +18,7 @@ const Layout = ({ children }) => {
                         <LayoutContent>
                             <LayoutHeader>
                                 <Header>
-                                    <HeaderText>
-                                        Good evening, Thomas
-                                    </HeaderText>
+                                    <HeaderText>{title}</HeaderText>
                                 </Header>
                             </LayoutHeader>
                             {children}

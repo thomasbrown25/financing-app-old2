@@ -37,9 +37,17 @@ export const CardHeaderText = styled.span`
     line-height: 1.4;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    font-weight: bold;
+    font-weight: 700;
     transition: color 150ms ease 0s;
     color: rgb(28, 27, 26);
+`;
+
+export const CardHeaderSubText = styled.span`
+    font-size: 12px;
+    line-height: 1.5;
+    font-weight: 400;
+    transition: color 150ms ease 0s;
+    color: rgb(84, 84, 83);
 `;
 
 export const Grid = styled.div`
