@@ -23,3 +23,11 @@ a {
 * {
     box-sizing: border-box;
 }
+
+.ui[class*='center aligned'].grid {
+    margin-top: 10% !important;
+}
+
+.primary {
+    color: rgb(28, 122, 249);
+}
