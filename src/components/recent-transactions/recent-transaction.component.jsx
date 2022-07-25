@@ -32,16 +32,17 @@ const RecentTransaction = ({ date, name, status, logo, category, amount }) => {
             <Cell>
                 <CategoryCell>
                     <CategoryWrapper>
-                        <CategoryLogo>
+                        {/* <CategoryLogo>
                             <Svg />
-                        </CategoryLogo>
+                        </CategoryLogo> */}
                         <CategoryName>
                             <CategoryNameText>{category}</CategoryNameText>
                         </CategoryName>
                     </CategoryWrapper>
                 </CategoryCell>
             </Cell>
-            <Cell>Actions cell</Cell>
+            <Cell />
+            {/* <Cell>Actions cell</Cell> */}
             <Cell>{amount}</Cell>
         </RecentTransRow>
     );

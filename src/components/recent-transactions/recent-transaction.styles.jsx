@@ -107,7 +107,7 @@ export const Svg = styled.svg`
 
 export const CategoryName = styled.div`
     width: 195px;
-    margin-left: 12px;
+    /* margin-left: 12px; */
     display: flex;
     -webkit-box-align: center;
     align-items: center;

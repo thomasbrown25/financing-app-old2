@@ -61,6 +61,9 @@ export const NavLink = styled(Link)`
     user-select: none;
     border: 1px solid transparent;
     transition: background-color 250ms ease 0s;
+    color: 'black';
+    /* color: ${(props) =>
+        props.active === 'true' ? 'rgb(28, 122, 249)' : 'black'}; */
     &:hover {
         color: rgb(28, 122, 249);
     }

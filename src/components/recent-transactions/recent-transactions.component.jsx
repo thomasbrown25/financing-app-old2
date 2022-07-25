@@ -32,9 +32,7 @@ const RecentTransactions = () => {
                         <Cell>
                             <Item>Category</Item>
                         </Cell>
-                        <Cell>
-                            <Item>Actions</Item>
-                        </Cell>
+                        <Cell>{/* <Item>Actions</Item> */}</Cell>
                         <Cell>
                             <Item>Amount</Item>
                         </Cell>

@@ -21,6 +21,17 @@ import {
 const Navigation = () => {
     const { currentUser } = useContext(UserContext);
 
+    // adding active class name to element to change font color
+    // will refactor later to do this through
+    const handleActiveChange = (e) => {
+        e.preventDefault();
+        if (e.target.className.includes(' active')) {
+            e.target.className = e.target.className.replace(' active', '');
+        } else {
+            e.target.className = e.target.className.concat(' active');
+        }
+    };
+
     return (
         <Fragment>
             <NavigationContainer>
