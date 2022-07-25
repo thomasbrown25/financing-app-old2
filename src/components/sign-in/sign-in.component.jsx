@@ -1,10 +1,5 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import {
-    signInWithGooglePopup,
-    // createUserDocumentFromAuth,
-    signInAuthUserWithEmailAndPassword
-} from '../../utils/firebase/firebase.utils';
 
 import {
     Grid,
@@ -16,12 +11,24 @@ import {
     Icon
 } from 'semantic-ui-react';
 
+import {
+    signInWithGooglePopup,
+    // createUserDocumentFromAuth,
+    signInAuthUserWithEmailAndPassword
+} from '../../utils/firebase/firebase.utils';
+
+import { UserContext } from '../../contexts/user.context';
+
+import { GoogleSignInButton } from './sign-in.styles';
+
 const defaultFormData = {
     email: '',
     password: ''
 };
 
 const SignInForm = () => {
+    const { currentUser } = useContext(UserContext);
+
     const [formData, setFormData] = useState(defaultFormData);
     const { email, password } = formData;
     const navigate = useNavigate();
@@ -47,7 +54,7 @@ const SignInForm = () => {
             );
 
             resetFormData();
-            if (user) navigate('/dashboard');
+            // if (user) navigate('/dashboard');
         } catch (err) {
             switch (err.code) {
                 case 'auth/wrong-password':
@@ -69,10 +76,14 @@ const SignInForm = () => {
         await signInWithGooglePopup();
     };
 
-    let theme = {
-        primaryColor: 'primary',
-        secondaryColor: ''
+    const theme = {
+        primaryColor: 'blue',
+        google: 'google plus'
     };
+
+    useEffect(() => {
+        if (currentUser) navigate('/dashboard');
+    });
 
     return (
         <Grid textAlign='center' verticalAlign='middle' className='app'>
@@ -84,7 +95,7 @@ const SignInForm = () => {
                     textAlign='center'
                 >
                     <Icon name='code branch' color={theme.primaryColor} />
-                    Login to DevChat
+                    Sign In
                 </Header>
                 <Form size='large' onSubmit={onSubmit}>
                     <Segment stacked>
@@ -110,19 +121,31 @@ const SignInForm = () => {
                         />
 
                         <Button
-                            disabled={''}
+                            // disabled={''}
                             className={''}
                             color={theme.primaryColor}
                             fluid
+                            type='submit'
                             size='large'
                         >
-                            Sign In
+                            Sign in
                         </Button>
+                        <GoogleSignInButton
+                            // disabled={''}
+                            className={''}
+                            color={theme.google}
+                            fluid
+                            type='button'
+                            size='large'
+                            onClick={SignInWithGoogle}
+                        >
+                            Sign in with Google
+                        </GoogleSignInButton>
                     </Segment>
                 </Form>
                 <Message>
                     Don't have an account?{' '}
-                    <Link to='/register'>Create Account</Link>{' '}
+                    <Link to='/sign-up'>Create Account</Link>{' '}
                 </Message>
             </Grid.Column>
         </Grid>
