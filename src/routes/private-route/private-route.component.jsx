@@ -1,14 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { Navigate, Outlet } from 'react-router-dom';
 
-import { UserContext } from '../../contexts/user.context';
+// import { selectCurrentUser } from '../../store/user/user.selector';
 
 const PrivateRoutes = () => {
-    const { currentUser } = useContext(UserContext);
+    const currentUser = null; // useSelector(selectCurrentUser);
     console.log(currentUser);
 
     return currentUser ? <Outlet /> : <Navigate to='sign-in' />;
-    return <Outlet />;
 };
 
 export default PrivateRoutes;

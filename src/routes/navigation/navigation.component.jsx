@@ -1,11 +1,10 @@
-import { Fragment, useContext } from 'react';
+import { Fragment } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg';
 
-import { UserContext } from '../../contexts/user.context';
-
-import { signOutUser } from '../../utils/firebase/firebase.utils';
+import { signOutStart } from '../../store/user/user.action';
 
 import {
     NavigationContainer,
@@ -19,18 +18,10 @@ import {
 } from './navigation.styles.jsx';
 
 const Navigation = () => {
-    const { currentUser } = useContext(UserContext);
+    const dispatch = useDispatch();
+    // const currentUser = useSelector(selectCurrentUser);
 
-    // adding active class name to element to change font color
-    // will refactor later to do this through
-    const handleActiveChange = (e) => {
-        e.preventDefault();
-        if (e.target.className.includes(' active')) {
-            e.target.className = e.target.className.replace(' active', '');
-        } else {
-            e.target.className = e.target.className.concat(' active');
-        }
-    };
+    // const signOutUser = () => dispatch(signOutStart());
 
     return (
         <Fragment>
@@ -45,13 +36,12 @@ const Navigation = () => {
                     <NavLink to='/spending'>Spending</NavLink>
                     <NavLink to='/accounts'>Accounts</NavLink>
                     <NavLink to='/transactions'>Transactions</NavLink>
-                    {currentUser ? (
-                        <NavLink as='span' onClick={signOutUser}>
-                            Sign Out
-                        </NavLink>
+
+                    {/* {currentUser ? (
+                        <NavLink as='span'>Sign Out</NavLink>
                     ) : (
                         <NavLink to='/auth'>Sign In</NavLink>
-                    )}
+                    )} */}
                 </NavLinks>
                 <NavSpacer />
                 <NavFooter>

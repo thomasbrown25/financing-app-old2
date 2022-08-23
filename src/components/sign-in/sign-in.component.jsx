@@ -1,5 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
     Grid,
@@ -11,14 +12,6 @@ import {
     Icon
 } from 'semantic-ui-react';
 
-import {
-    signInWithGooglePopup,
-    // createUserDocumentFromAuth,
-    signInAuthUserWithEmailAndPassword
-} from '../../utils/firebase/firebase.utils';
-
-import { UserContext } from '../../contexts/user.context';
-
 import { GoogleSignInButton } from './sign-in.styles';
 
 const defaultFormData = {
@@ -27,11 +20,22 @@ const defaultFormData = {
 };
 
 const SignInForm = () => {
-    const { currentUser } = useContext(UserContext);
+    // const currentUser = useSelector(selectCurrentUser);
+
+    // useEffect(() => {
+    //     if (currentUser) navigate('/dashboard');
+    // });
+
+    const dispatch = useDispatch();
 
     const [formData, setFormData] = useState(defaultFormData);
     const { email, password } = formData;
     const navigate = useNavigate();
+
+    // Sign in user with Google Pop-up
+    const SignInWithGoogle = async () => {
+        // dispatch(googleSignInStart());
+    };
 
     const resetFormData = () => {
         setFormData(defaultFormData);
@@ -48,11 +52,7 @@ const SignInForm = () => {
 
         // Sign in user with email and password
         try {
-            const { user } = await signInAuthUserWithEmailAndPassword(
-                email,
-                password
-            );
-
+            // dispatch(emailSignInStart(email, password));
             resetFormData();
             // if (user) navigate('/dashboard');
         } catch (err) {
@@ -71,19 +71,10 @@ const SignInForm = () => {
         }
     };
 
-    // Sign in user with Google Pop-up
-    const SignInWithGoogle = async () => {
-        await signInWithGooglePopup();
-    };
-
     const theme = {
         primaryColor: 'blue',
         google: 'google plus'
     };
-
-    useEffect(() => {
-        if (currentUser) navigate('/dashboard');
-    });
 
     return (
         <Grid textAlign='center' verticalAlign='middle' className='app'>

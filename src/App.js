@@ -1,4 +1,11 @@
+import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
+
+import setAuthToken from './utils/set-auth-token';
+
+import store from './store/store';
+
+import { loadUser } from './store/user/user.action';
 
 import Navigation from './routes/navigation/navigation.component';
 import Home from './routes/home/home.component';
@@ -11,6 +18,24 @@ import SignUp from './routes/sign-up/sign-up.component';
 // import { PrivateRoute } from './components/routes/PrivateRoute';
 
 const App = () => {
+    useEffect(() => {
+        // check for token in LS when app first runs
+        console.log(localStorage);
+        if (localStorage.token) {
+            console.log('we have a token in local storage');
+            // if there is a token set axios headers for all requests
+            setAuthToken(localStorage.token);
+        }
+        // try to fetch a user, if no token or invalid token we
+        // will get a 401 response from our API
+        store.dispatch(loadUser());
+
+        // log user out from all tabs if they log out in one tab
+        window.addEventListener('storage', () => {
+            // if (!localStorage.token) store.dispatch({ type: LOGOUT });
+        });
+    }, []);
+
     return (
         <Routes>
             <Route path='sign-in' element={<SignIn />} />

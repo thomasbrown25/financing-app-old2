@@ -3,7 +3,7 @@ import { Button } from 'semantic-ui-react';
 
 export const BaseButton = styled.button`
     text-transform: uppercase;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Open Sans, sans-serif';
 `;
 
 export const GoogleSignInButton = styled(Button)`

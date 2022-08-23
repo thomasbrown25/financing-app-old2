@@ -1,5 +1,7 @@
 import { Fragment, useState } from 'react';
+import { connect } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import {
     Grid,
@@ -10,21 +12,17 @@ import {
     Message,
     Icon
 } from 'semantic-ui-react';
-
-import {
-    createAuthUserWithEmailAndPassword,
-    createUserDocumentFromAuth
-} from '../../utils/firebase/firebase.utils';
+import { register } from '../../store/user/user.action';
 
 const defaultFormData = {
-    displayName: '',
+    username: '',
     email: '',
     password: '',
     confirmPassword: ''
 };
-const SignUpForm = () => {
+const SignUpForm = ({ register }) => {
     const [formData, setFormData] = useState(defaultFormData);
-    const { displayName, email, password, confirmPassword } = formData;
+    const { username, email, password, confirmPassword } = formData;
 
     const resetFormData = () => {
         setFormData(defaultFormData);
@@ -40,17 +38,14 @@ const SignUpForm = () => {
         if (password !== confirmPassword)
             return alert('passwords do not match');
 
-        // see if user is authenticated
         try {
-            const { user } = await createAuthUserWithEmailAndPassword(
-                email,
-                password
-            );
+            // call register action
+            console.log('calling register action');
+            register(formData);
 
-            resetFormData();
+            // resetFormData();
 
-            // create user document
-            await createUserDocumentFromAuth(user, { displayName });
+            // if user is authenticated, redirect to dashboard
         } catch (err) {
             if (err.code === 'auth/email-already-in-use') {
                 alert('Cannot create user, email already in use');
@@ -59,29 +54,19 @@ const SignUpForm = () => {
         }
     };
 
-    const theme = {
-        primaryColor: 'primary',
-        secondaryColor: ''
-    };
-
     return (
         <Grid textAlign='center' verticalAlign='middle' className='app'>
             <Grid.Column style={{ maxWidth: 450 }}>
-                <Header
-                    as='h1'
-                    icon
-                    color={theme.primaryColor}
-                    textAlign='center'
-                >
-                    <Icon name='puzzle piece' color={theme.primaryColor} />
-                    Register for DevChat
+                <Header as='h1' icon color={'blue'} textAlign='center'>
+                    <Icon name='puzzle piece' />
+                    Register
                 </Header>
                 <Form size='large' onSubmit={onSubmit}>
                     <Segment stacked>
                         <Form.Input
                             fluid
-                            name='displayName'
-                            value={displayName}
+                            name='username'
+                            value={username}
                             icon='user'
                             iconPosition='left'
                             placeholder='Display Name'
@@ -120,9 +105,9 @@ const SignUpForm = () => {
                         />
 
                         <Button
-                            disabled={''}
+                            disabled={false}
                             className={''}
-                            color={theme.primaryColor}
+                            color={'blue'}
                             fluid
                             size='large'
                         >
@@ -138,4 +123,12 @@ const SignUpForm = () => {
     );
 };
 
-export default SignUpForm;
+SignUpForm.propTypes = {
+    register: PropTypes.func.isRequired
+};
+
+//   const mapStateToProps = (state) => ({
+//     isAuthenticated: state.auth.isAuthenticated
+//   });
+
+export default connect(null, { register })(SignUpForm);
