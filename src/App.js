@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import setAuthToken from './utils/set-auth-token';
+import { setAuthToken } from './utils/api/api';
 
 import store from './store/store';
 

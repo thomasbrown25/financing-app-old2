@@ -4,7 +4,7 @@ const initialState = {
     token: localStorage.getItem('token'),
     isAuthenticated: null,
     loading: true,
-    user: null
+    currentUser: null
 };
 
 function userReducer(state = initialState, action) {
@@ -16,13 +16,13 @@ function userReducer(state = initialState, action) {
                 ...state,
                 isAuthenticated: true,
                 loading: false,
-                user: payload
+                currentUser: payload
             };
         case USER_ACTION_TYPES.REGISTER_SUCCESS:
         case USER_ACTION_TYPES.SIGN_IN_SUCCESS:
             return {
                 ...state,
-                token: payload.token,
+                token: payload.data,
                 isAuthenticated: true,
                 loading: false
             };
@@ -34,7 +34,7 @@ function userReducer(state = initialState, action) {
                 token: null,
                 isAuthenticated: false,
                 loading: false,
-                user: null
+                currentUser: null
             };
         default:
             return state;

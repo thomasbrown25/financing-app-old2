@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { gapi } from 'gapi-script';
+
+import { login } from '../../store/user/user.action';
 
 import {
     Grid,
@@ -12,14 +17,27 @@ import {
     Icon
 } from 'semantic-ui-react';
 
-import { GoogleSignInButton } from './sign-in.styles';
+import GoogleLoginButton from '../google/google-login-button.component';
+import GoogleLogoutButton from '../google/google-logout-button.component';
+
+const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
 
 const defaultFormData = {
     email: '',
     password: ''
 };
 
-const SignInForm = () => {
+const SignInForm = ({ login }) => {
+    useEffect(() => {
+        function start() {
+            gapi.client.init({
+                client_id: GOOGLE_CLIENT_ID,
+                scope: ''
+            });
+        }
+
+        gapi.load('client:auth2', start);
+    });
     // const currentUser = useSelector(selectCurrentUser);
 
     // useEffect(() => {
@@ -52,8 +70,8 @@ const SignInForm = () => {
 
         // Sign in user with email and password
         try {
-            // dispatch(emailSignInStart(email, password));
-            resetFormData();
+            login(formData);
+            //resetFormData();
             // if (user) navigate('/dashboard');
         } catch (err) {
             switch (err.code) {
@@ -121,7 +139,7 @@ const SignInForm = () => {
                         >
                             Sign in
                         </Button>
-                        <GoogleSignInButton
+                        {/* <GoogleSignInButton
                             // disabled={''}
                             className={''}
                             color={theme.google}
@@ -131,7 +149,9 @@ const SignInForm = () => {
                             onClick={SignInWithGoogle}
                         >
                             Sign in with Google
-                        </GoogleSignInButton>
+                        </GoogleSignInButton> */}
+                        <GoogleLoginButton />
+                        <GoogleLogoutButton />
                     </Segment>
                 </Form>
                 <Message>
@@ -142,5 +162,12 @@ const SignInForm = () => {
         </Grid>
     );
 };
+SignInForm.propTypes = {
+    login: PropTypes.func.isRequired
+};
 
-export default SignInForm;
+//   const mapStateToProps = (state) => ({
+//     isAuthenticated: state.auth.isAuthenticated
+//   });
+
+export default connect(null, { login })(SignInForm);

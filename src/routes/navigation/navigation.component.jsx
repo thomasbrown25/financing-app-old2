@@ -4,6 +4,8 @@ import { Outlet } from 'react-router-dom';
 
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg';
 
+import { selectCurrentUser } from '../../store/user/user.selector';
+
 import { signOutStart } from '../../store/user/user.action';
 
 import {
@@ -18,9 +20,11 @@ import {
 } from './navigation.styles.jsx';
 
 const Navigation = () => {
-    const dispatch = useDispatch();
-    // const currentUser = useSelector(selectCurrentUser);
+    const currentUser = useSelector(selectCurrentUser);
 
+    if (currentUser) console.log('we got current user');
+
+    // const dispatch = useDispatch();
     // const signOutUser = () => dispatch(signOutStart());
 
     return (

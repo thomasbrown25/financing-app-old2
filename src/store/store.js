@@ -2,7 +2,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import logger from 'redux-logger';
 
-import setAuthToken from '../utils/set-auth-token';
+import { setAuthToken } from '../utils/api/api';
 
 import { rootReducer } from './root-reducer';
 
