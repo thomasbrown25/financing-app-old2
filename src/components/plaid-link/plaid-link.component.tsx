@@ -7,7 +7,7 @@ import { selectPlaid } from '../../store/plaid/plaid.selector';
 
 import { PLAID_ACTION_TYPES } from '../../store/plaid/plaid.types';
 
-const Link = () => {
+const PlaidLink = () => {
     const dispatch = useDispatch();
     const { linkToken } = useSelector(selectPlaid);
 
@@ -79,6 +79,6 @@ const Link = () => {
     );
 };
 
-Link.displayName = 'Link';
+PlaidLink.displayName = 'Link';
 
-export default Link;
+export default PlaidLink;

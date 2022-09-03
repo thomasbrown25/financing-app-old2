@@ -46,7 +46,7 @@ api.interceptors.response.use(
 export const setAuthToken = (token) => {
     console.log('setting auth token: ' + token);
     if (token) {
-        api.defaults.headers.common['Authorization'] = token;
+        api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         localStorage.setItem('token', token);
     } else {
         // delete api.defaults.headers.common['bearer'];

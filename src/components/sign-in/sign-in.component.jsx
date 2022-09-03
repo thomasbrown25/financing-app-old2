@@ -1,24 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { gapi } from 'gapi-script';
 
 import { login } from '../../store/user/user.action';
 
-import {
-    Grid,
-    Form,
-    Segment,
-    Button,
-    Header,
-    Message,
-    Icon
-} from 'semantic-ui-react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import GoogleLoginButton from '../google/google-login-button.component';
-import GoogleLogoutButton from '../google/google-logout-button.component';
+// import GoogleLoginButton from '../google/google-login-button.component';
+// import GoogleLogoutButton from '../google/google-logout-button.component';
+import { signInWithGooglePopup } from '../../utils/firebase/firebase.utils';
+import { SignInResponse } from './sign-in.styles';
+
+// import { GoogleSignInButton } from '../button/button.component';
+// import { SignInResponse } from './sign-in.styles';
 
 const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
 
@@ -27,7 +36,27 @@ const defaultFormData = {
     password: ''
 };
 
-const SignInForm = ({ login }) => {
+const theme = createTheme();
+
+function Copyright(props) {
+    return (
+        <Typography
+            variant='body2'
+            color='text.secondary'
+            align='center'
+            {...props}
+        >
+            {'Copyright © '}
+            <Link color='inherit' href='https://mui.com/'>
+                Financing App
+            </Link>{' '}
+            {new Date().getFullYear()}
+            {'.'}
+        </Typography>
+    );
+}
+
+const SignInForm = ({ login, user: { currentUser, error } }) => {
     useEffect(() => {
         function start() {
             gapi.client.init({
@@ -38,11 +67,10 @@ const SignInForm = ({ login }) => {
 
         gapi.load('client:auth2', start);
     });
-    // const currentUser = useSelector(selectCurrentUser);
 
-    // useEffect(() => {
-    //     if (currentUser) navigate('/dashboard');
-    // });
+    useEffect(() => {
+        if (currentUser) navigate('/dashboard');
+    });
 
     const dispatch = useDispatch();
 
@@ -52,7 +80,7 @@ const SignInForm = ({ login }) => {
 
     // Sign in user with Google Pop-up
     const SignInWithGoogle = async () => {
-        // dispatch(googleSignInStart());
+        signInWithGooglePopup();
     };
 
     const resetFormData = () => {
@@ -71,8 +99,6 @@ const SignInForm = ({ login }) => {
         // Sign in user with email and password
         try {
             login(formData);
-            //resetFormData();
-            // if (user) navigate('/dashboard');
         } catch (err) {
             switch (err.code) {
                 case 'auth/wrong-password':
@@ -89,85 +115,103 @@ const SignInForm = ({ login }) => {
         }
     };
 
-    const theme = {
-        primaryColor: 'blue',
-        google: 'google plus'
-    };
-
     return (
-        <Grid textAlign='center' verticalAlign='middle' className='app'>
-            <Grid.Column style={{ maxWidth: 450 }}>
-                <Header
-                    as='h1'
-                    icon
-                    color={theme.primaryColor}
-                    textAlign='center'
-                >
-                    <Icon name='code branch' color={theme.primaryColor} />
-                    Sign In
-                </Header>
-                <Form size='large' onSubmit={onSubmit}>
-                    <Segment stacked>
-                        <Form.Input
-                            fluid
-                            name='email'
-                            value={email}
-                            icon='mail'
-                            iconPosition='left'
-                            placeholder='Email Address'
-                            onChange={onChange}
-                            type='email'
-                        />
-                        <Form.Input
-                            fluid
-                            name='password'
-                            value={password}
-                            icon='lock'
-                            iconPosition='left'
-                            placeholder='Password'
-                            onChange={onChange}
-                            type='password'
-                        />
-
-                        <Button
-                            // disabled={''}
-                            className={''}
-                            color={theme.primaryColor}
-                            fluid
-                            type='submit'
-                            size='large'
-                        >
+        <>
+            <ThemeProvider theme={theme}>
+                <Container component='main' maxWidth='xs'>
+                    <CssBaseline />
+                    <Box
+                        sx={{
+                            marginTop: 8,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center'
+                        }}
+                    >
+                        <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
+                            <LockOutlinedIcon />
+                        </Avatar>
+                        <Typography component='h1' variant='h5'>
                             Sign in
-                        </Button>
-                        {/* <GoogleSignInButton
-                            // disabled={''}
-                            className={''}
-                            color={theme.google}
-                            fluid
-                            type='button'
-                            size='large'
-                            onClick={SignInWithGoogle}
+                        </Typography>
+                        <Box
+                            component='form'
+                            onSubmit={onSubmit}
+                            noValidate
+                            sx={{ mt: 1 }}
                         >
-                            Sign in with Google
-                        </GoogleSignInButton> */}
-                        <GoogleLoginButton />
-                        <GoogleLogoutButton />
-                    </Segment>
-                </Form>
-                <Message>
-                    Don't have an account?{' '}
-                    <Link to='/sign-up'>Create Account</Link>{' '}
-                </Message>
-            </Grid.Column>
-        </Grid>
+                            <SignInResponse
+                                style={{ display: !error && 'none' }}
+                            >
+                                Your email or password is incorrect. Please try
+                                again.
+                            </SignInResponse>
+                            <TextField
+                                onChange={onChange}
+                                margin='normal'
+                                required
+                                fullWidth
+                                id='email'
+                                label='Email Address'
+                                name='email'
+                                autoComplete='email'
+                                autoFocus
+                            />
+                            <TextField
+                                onChange={onChange}
+                                margin='normal'
+                                required
+                                fullWidth
+                                name='password'
+                                label='Password'
+                                type='password'
+                                id='password'
+                                autoComplete='current-password'
+                            />
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        value='remember'
+                                        color='primary'
+                                    />
+                                }
+                                label='Remember me'
+                            />
+                            <Button
+                                type='submit'
+                                fullWidth
+                                variant='contained'
+                                sx={{ mt: 3, mb: 2 }}
+                            >
+                                Sign In
+                            </Button>
+                            <Grid container>
+                                <Grid item xs>
+                                    <Link href='#' variant='body2'>
+                                        Forgot password?
+                                    </Link>
+                                </Grid>
+                                <Grid item>
+                                    <Link href={'/sign-up'} variant='body2'>
+                                        {"Don't have an account? Sign Up"}
+                                    </Link>
+                                </Grid>
+                            </Grid>
+                        </Box>
+                    </Box>
+                    <Copyright sx={{ mt: 8, mb: 4 }} />
+                </Container>
+            </ThemeProvider>
+        </>
     );
 };
 SignInForm.propTypes = {
-    login: PropTypes.func.isRequired
+    login: PropTypes.func.isRequired,
+    user: PropTypes.object.isRequired
 };
 
-//   const mapStateToProps = (state) => ({
-//     isAuthenticated: state.auth.isAuthenticated
-//   });
+const mapStateToProps = (state) => ({
+    user: state.user
+});
 
-export default connect(null, { login })(SignInForm);
+export default connect(mapStateToProps, { login })(SignInForm);

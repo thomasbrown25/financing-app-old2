@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { Button } from 'semantic-ui-react';
 
 export const BaseButton = styled.button`
@@ -13,4 +13,18 @@ export const GoogleSignInButton = styled(Button)`
         background-color: darkred !important;
         border: none !important;
     } */
+`;
+
+const DelayAnimation = keyframes`
+    0% { opacity: 0 }
+    100% { opacity: 1 }
+`;
+
+export const SignInResponse = styled.p`
+    color: #ff3333;
+    border: 0.2rem solid #ff3333;
+    border-radius: 0.3rem;
+    padding: 0.5rem;
+    font-weight: 700;
+    animation: ${DelayAnimation} 2s 1;
 `;

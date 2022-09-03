@@ -19,16 +19,19 @@ export const register = (reqBody) => async (dispatch) => {
         dispatch(loadUser());
     } catch (error) {
         console.log(error, error.message);
+        dispatch({
+            type: USER_ACTION_TYPES.SIGN_IN_FAILED,
+            payload: error?.response?.data.message
+        });
     }
 };
 
 /** Calls the API service to login a user and returns a user object
  ** POST: "/auth/login"
- * @param reqBody: { username, email, password }
+ * @param reqBody: { email, password }
  **/
 export const login = (reqBody) => async (dispatch) => {
     try {
-        console.log('calling login api');
         const response = await api.post('/auth/login', reqBody);
 
         dispatch({
@@ -39,37 +42,43 @@ export const login = (reqBody) => async (dispatch) => {
         dispatch(loadUser());
     } catch (error) {
         console.log(error, error.message);
+        dispatch({
+            type: USER_ACTION_TYPES.SIGN_IN_FAILED,
+            payload: error?.response?.data.message
+        });
     }
 };
 
 /** Calls the API service to get user data and load user
- ** POST: "/auth"
- * @param reqBody: { username, email, password }
+ ** GET: "/auth/load-user"
+ * @param reqBody: {  }
  **/
 export const loadUser = () => async (dispatch) => {
     try {
-        console.log(api.defaults.headers);
-        const token = localStorage.getItem('token');
-
-        if (!token) {
-            console.log('did not get token from storage');
-            dispatch({
-                type: USER_ACTION_TYPES.USER_LOADED_FAILED,
-                payload: 'no token in local storage'
-            });
-            return;
-        }
-
-        console.log('about to make auth call');
-
-        const response = await api.post('/auth', token);
-        console.log(response);
+        const response = await api.get('/auth/load-user');
 
         dispatch({
             type: USER_ACTION_TYPES.USER_LOADED,
-            payload: response.data
+            payload: response.data.data
         });
     } catch (error) {
         console.log(error, error.message);
+    }
+};
+
+/** Logs out the user by removing the jwt token in local storage
+ * @param reqBody: {  }
+ **/
+export const logout = () => async (dispatch) => {
+    try {
+        localStorage.removeItem('token');
+        dispatch({
+            type: USER_ACTION_TYPES.SIGN_OUT_SUCCESS
+        });
+    } catch (error) {
+        console.log(error, error.message);
+        dispatch({
+            type: USER_ACTION_TYPES.SIGN_OUT_FAILED
+        });
     }
 };

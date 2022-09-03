@@ -1,12 +1,15 @@
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { Outlet } from 'react-router-dom';
 
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg';
 
 import { selectCurrentUser } from '../../store/user/user.selector';
 
-import { signOutStart } from '../../store/user/user.action';
+import { logout } from '../../store/user/user.action';
 
 import {
     NavigationContainer,
@@ -19,13 +22,14 @@ import {
     NavSpacer
 } from './navigation.styles.jsx';
 
-const Navigation = () => {
+const Navigation = ({ logout }) => {
     const currentUser = useSelector(selectCurrentUser);
 
     if (currentUser) console.log('we got current user');
 
-    // const dispatch = useDispatch();
-    // const signOutUser = () => dispatch(signOutStart());
+    const signOutUser = () => {
+        logout();
+    };
 
     return (
         <Fragment>
@@ -41,11 +45,13 @@ const Navigation = () => {
                     <NavLink to='/accounts'>Accounts</NavLink>
                     <NavLink to='/transactions'>Transactions</NavLink>
 
-                    {/* {currentUser ? (
-                        <NavLink as='span'>Sign Out</NavLink>
+                    {currentUser ? (
+                        <NavLink onClick={signOutUser} as='span'>
+                            Sign Out
+                        </NavLink>
                     ) : (
                         <NavLink to='/auth'>Sign In</NavLink>
-                    )} */}
+                    )}
                 </NavLinks>
                 <NavSpacer />
                 <NavFooter>
@@ -57,4 +63,8 @@ const Navigation = () => {
     );
 };
 
-export default Navigation;
+Navigation.propTypes = {
+    logout: PropTypes.func.isRequired
+};
+
+export default connect(null, { logout })(Navigation);
