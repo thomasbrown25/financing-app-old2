@@ -1,13 +1,18 @@
-import { Button } from '@mui/material';
-import React, { useEffect } from 'react';
 import { usePlaidLink } from 'react-plaid-link';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-const PlaidLink = ({ linkToken }) => {
+import { Button } from '@mui/material';
+
+import { publicTokenExchange } from '../../store/user/user.action';
+
+const PlaidLink = ({ linkToken, publicTokenExchange }) => {
     const { open, ready } = usePlaidLink({
         token: linkToken,
         onSuccess: (public_token, metadata) => {
             // send public_token to server
-            console.log('success link token');
+            console.log(metadata);
+            publicTokenExchange(metadata.public_token);
         },
         onExit: (error) => {
             console.log(error);
@@ -20,4 +25,9 @@ const PlaidLink = ({ linkToken }) => {
         </Button>
     );
 };
-export default PlaidLink;
+
+PlaidLink.propTypes = {
+    publicTokenExchange: PropTypes.func.isRequired
+};
+
+export default connect(null, { publicTokenExchange })(PlaidLink);

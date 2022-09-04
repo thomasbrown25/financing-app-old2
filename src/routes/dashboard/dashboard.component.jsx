@@ -13,16 +13,16 @@ import {
 import RecentTransactions from '../../components/recent-transactions/recent-transactions.component';
 import Upcoming from '../../components/upcoming/upcoming.component';
 
-import { getLinkToken } from '../../store/user/user.action';
+import { createLinkToken } from '../../store/user/user.action';
 
 import PlaidLink from '../../components/plaid-link/plaid-link.component';
 
-const Dashboard = ({ user: { currentUser }, getLinkToken }) => {
+const Dashboard = ({ user: { currentUser }, createLinkToken }) => {
     useEffect(() => {
         if (!currentUser.accessToken) {
-            getLinkToken();
+            createLinkToken();
         }
-    }, []);
+    }, [currentUser.accessToken, createLinkToken]);
 
     return (
         <Layout title={`Good evening, ${currentUser?.firstname}`}>
@@ -46,11 +46,11 @@ const Dashboard = ({ user: { currentUser }, getLinkToken }) => {
 
 Dashboard.propTypes = {
     user: PropTypes.object.isRequired,
-    getLinkToken: PropTypes.func.isRequired
+    createLinkToken: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
     user: state.user
 });
 
-export default connect(mapStateToProps, { getLinkToken })(Dashboard);
+export default connect(mapStateToProps, { createLinkToken })(Dashboard);

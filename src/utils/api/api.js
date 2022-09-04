@@ -1,15 +1,13 @@
 import axios from 'axios';
-import store from '../../store/store';
 // import { LOGOUT } from '../actions/types';
 
 // Create an instance of axios
 export const api = axios.create({
     baseURL: '/',
     headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json; charset=utf-8'
     }
 });
-console.log('creating api instance');
 
 /*
   NOTE: intercept every request and set the
@@ -44,12 +42,11 @@ api.interceptors.response.use(
 );
 
 export const setAuthToken = (token) => {
-    console.log('setting auth token: ' + token);
     if (token) {
         api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         localStorage.setItem('token', token);
     } else {
-        // delete api.defaults.headers.common['bearer'];
-        // localStorage.removeItem('token');
+        delete api.defaults.headers.common['bearer'];
+        localStorage.removeItem('token');
     }
 };
