@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { api } from '../../utils/api/api';
 
 import { USER_ACTION_TYPES } from './user.types';
@@ -36,7 +35,7 @@ export const login = (reqBody) => async (dispatch) => {
 
         dispatch({
             type: USER_ACTION_TYPES.SIGN_IN_SUCCESS,
-            payload: response.data
+            payload: response.data.data
         });
 
         dispatch(loadUser());
@@ -79,6 +78,28 @@ export const logout = () => async (dispatch) => {
         console.log(error, error.message);
         dispatch({
             type: USER_ACTION_TYPES.SIGN_OUT_FAILED
+        });
+    }
+};
+
+/** Calls financing-api which calls Plaid api "/api/create_link_token" which
+ *  returns a link-token.
+ ** GET: "/plaid/create-link-token"
+ * @param reqBody: { }
+ **/
+export const getLinkToken = () => async (dispatch) => {
+    try {
+        const response = await api.get('/plaid/create-link-token');
+
+        dispatch({
+            type: USER_ACTION_TYPES.CREATE_LINK_TOKEN_SUCCESS,
+            payload: response.data.data
+        });
+    } catch (error) {
+        console.log(error, error.message);
+        dispatch({
+            type: USER_ACTION_TYPES.CREATE_LINK_TOKEN_FAILED,
+            payload: error?.response?.data.message
         });
     }
 };

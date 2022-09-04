@@ -1,15 +1,25 @@
+import { api } from '../../utils/api/api';
+
 import { PLAID_ACTION_TYPES } from './plaid.types';
-import { createAction } from '../../utils/reducer/reducer.utils';
 
-// Action Creators
-export const fetchAccessTokenStart = (publicToken) => {
-    createAction(PLAID_ACTION_TYPES.ACCESS_TOKEN_START, publicToken);
-};
+/** Calls financing-api which calls Plaid api "/api/create_link_token" which
+ *  returns a link-token.
+ ** GET: "/plaid/create-link-token"
+ * @param reqBody: { }
+ **/
+export const getLinkToken = () => async (dispatch) => {
+    try {
+        const response = await api.get('/plaid/create-link-token');
 
-export const fetchAccessTokenSuccess = (accessToken) => {
-    createAction(PLAID_ACTION_TYPES.ACCESS_TOKEN_SUCCESS, accessToken);
-};
-
-export const fetchAccessTokenFailed = (error) => {
-    createAction(PLAID_ACTION_TYPES.ACCESS_TOKEN_FAILED, error);
+        dispatch({
+            type: PLAID_ACTION_TYPES.CREATE_LINK_TOKEN_SUCCESS,
+            payload: response.data
+        });
+    } catch (error) {
+        console.log(error, error.message);
+        dispatch({
+            type: PLAID_ACTION_TYPES.CREATE_LINK_TOKEN_FAILED,
+            payload: error?.response?.data.message
+        });
+    }
 };
