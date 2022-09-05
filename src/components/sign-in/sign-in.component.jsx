@@ -23,13 +23,13 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 // import GoogleLoginButton from '../google/google-login-button.component';
 // import GoogleLogoutButton from '../google/google-logout-button.component';
-import { signInWithGooglePopup } from '../../utils/firebase/firebase.utils';
+// import { signInWithGooglePopup } from '../../utils/firebase/firebase.utils';
 import { SignInResponse } from './sign-in.styles';
 
 // import { GoogleSignInButton } from '../button/button.component';
 // import { SignInResponse } from './sign-in.styles';
 
-const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
+// const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = process.env;
 
 const defaultFormData = {
     email: '',
@@ -57,31 +57,29 @@ function Copyright(props) {
 }
 
 const SignInForm = ({ login, user: { currentUser, error } }) => {
-    useEffect(() => {
-        function start() {
-            gapi.client.init({
-                client_id: GOOGLE_CLIENT_ID,
-                scope: ''
-            });
-        }
+    // useEffect(() => {
+    //     function start() {
+    //         gapi.client.init({
+    //             client_id: GOOGLE_CLIENT_ID,
+    //             scope: ''
+    //         });
+    //     }
 
-        gapi.load('client:auth2', start);
-    });
+    //     gapi.load('client:auth2', start);
+    // });
 
     useEffect(() => {
         if (currentUser) navigate('/dashboard');
     });
-
-    const dispatch = useDispatch();
 
     const [formData, setFormData] = useState(defaultFormData);
     const { email, password } = formData;
     const navigate = useNavigate();
 
     // Sign in user with Google Pop-up
-    const SignInWithGoogle = async () => {
-        signInWithGooglePopup();
-    };
+    // const SignInWithGoogle = async () => {
+    //     signInWithGooglePopup();
+    // };
 
     const resetFormData = () => {
         setFormData(defaultFormData);
@@ -99,6 +97,7 @@ const SignInForm = ({ login, user: { currentUser, error } }) => {
         // Sign in user with email and password
         try {
             login(formData);
+            resetFormData();
         } catch (err) {
             switch (err.code) {
                 case 'auth/wrong-password':

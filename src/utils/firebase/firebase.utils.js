@@ -1,4 +1,4 @@
-import { initializeApp } from 'firebase/app';
+// import { initializeApp } from 'firebase/app';
 import {
     getAuth,
     signInWithRedirect,
@@ -24,7 +24,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const firebaseApp = initializeApp(firebaseConfig);
+// const firebaseApp = initializeApp(firebaseConfig);
 
 // Google Sign-in Configuration
 const googleProvider = new GoogleAuthProvider();

@@ -22,20 +22,20 @@ const RecentTransactions = ({
         getTransactions();
     }, [getTransactions]);
 
-    const TransactionComponent = () => {
-        transactions?.forEach((transaction) => {
-            return (
-                <RecentTransaction
-                    date={transaction.authorizedDate}
-                    name={transaction.name}
-                    status={transaction.pending ? '| pending' : '| complete'}
-                    logo={''}
-                    category={transaction.category}
-                    amount={transaction.amount}
-                />
-            );
-        });
-    };
+    // const TransactionComponent = () => {
+    //     transactions?.forEach((transaction) => {
+    //         return (
+    //             <RecentTransaction
+    //                 date={transaction.authorizedDate}
+    //                 name={transaction.name}
+    //                 status={transaction.pending ? '| pending' : '| complete'}
+    //                 logo={''}
+    //                 category={transaction.category}
+    //                 amount={transaction.amount}
+    //             />
+    //         );
+    //     });
+    // };
 
     return (
         <CardContainer>

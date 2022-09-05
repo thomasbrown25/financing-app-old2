@@ -1,6 +1,6 @@
 import {
     CategoryCell,
-    CategoryLogo,
+    // CategoryLogo,
     CategoryName,
     CategoryNameText,
     CategoryWrapper,
@@ -10,11 +10,11 @@ import {
     NameText,
     NameWrapper,
     RecentTransRow,
-    StatusText,
-    Svg
+    StatusText
+    // Svg
 } from './recent-transaction.styles';
 
-const RecentTransaction = ({ date, name, status, logo, category, amount }) => {
+const RecentTransaction = ({ date, name, status, category, amount }) => {
     return (
         <RecentTransRow>
             <Cell>

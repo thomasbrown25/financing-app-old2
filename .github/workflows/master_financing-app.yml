@@ -23,7 +23,7 @@ jobs:
 
             - name: yarn install, build, and test
               run: |
-                  yarn install --legacy-peer-deps
+                  yarn install --network-timeout 1000000000
                   yarn run build --if-present
 
             - name: Zip artifact for deployment
