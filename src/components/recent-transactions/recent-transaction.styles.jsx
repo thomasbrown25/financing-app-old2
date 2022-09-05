@@ -62,7 +62,7 @@ export const NameText = styled.span`
     flex: 0 1 auto;
     font-size: 15px;
     line-height: 1.3;
-    transition: color 150ms ease 0s;
+    transition: color 0.15s ease 0s;
     font-weight: 400;
     white-space: nowrap;
     overflow: hidden;
