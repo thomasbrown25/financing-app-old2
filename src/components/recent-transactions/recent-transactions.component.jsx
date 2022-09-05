@@ -1,3 +1,6 @@
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import {
     CardContainer,
     CardHeader,
@@ -8,13 +11,38 @@ import {
 import RecentTransaction from './recent-transaction.component';
 import { Cell, HeaderSubText, Item, Row } from './recent-transactions.styles';
 
-const RecentTransactions = () => {
+import { getTransactions } from '../../store/transactions/transactions.action';
+import { useEffect } from 'react';
+
+const RecentTransactions = ({
+    transactions: { transactions },
+    getTransactions
+}) => {
+    useEffect(() => {
+        getTransactions();
+    }, [getTransactions]);
+
+    const TransactionComponent = () => {
+        transactions?.forEach((transaction) => {
+            return (
+                <RecentTransaction
+                    date={transaction.authorizedDate}
+                    name={transaction.name}
+                    status={transaction.pending ? '| pending' : '| complete'}
+                    logo={''}
+                    category={transaction.category}
+                    amount={transaction.amount}
+                />
+            );
+        });
+    };
+
     return (
         <CardContainer>
             <CardHeader>
                 <CardHeaderText>Recent Transactions</CardHeaderText>
                 <HeaderSubText>
-                    You've had 73 transactions this month
+                    You've had {transactions?.length} transactions this month
                 </HeaderSubText>
             </CardHeader>
             <CardBody>
@@ -37,18 +65,34 @@ const RecentTransactions = () => {
                             <Item>Amount</Item>
                         </Cell>
                     </Row>
-                    <RecentTransaction
-                        date={'7/23'}
-                        name={'Blizzard Entertainment'}
-                        status={'| pending'}
-                        logo={''}
-                        category={'Entertainment & Rec.'}
-                        amount={'$9.99'}
-                    />
+                    {transactions?.map((transaction, i) => (
+                        <RecentTransaction
+                            key={i}
+                            date={transaction.authorizedDate}
+                            name={transaction.name}
+                            status={
+                                transaction.pending ? '| pending' : '| complete'
+                            }
+                            logo={''}
+                            category={transaction.categories[0]}
+                            amount={`${transaction.amount}`}
+                        />
+                    ))}
                 </Grid>
             </CardBody>
         </CardContainer>
     );
 };
 
-export default RecentTransactions;
+RecentTransactions.propTypes = {
+    transactions: PropTypes.object.isRequired,
+    getTransactions: PropTypes.func.isRequired
+};
+
+const mapStateToProps = (state) => ({
+    transactions: state.transactions
+});
+
+export default connect(mapStateToProps, { getTransactions })(
+    RecentTransactions
+);
