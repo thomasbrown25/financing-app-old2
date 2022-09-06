@@ -20,7 +20,6 @@
         "plaid-threads": "^11.5.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
-        "react-google-login": "^5.2.2",
         "react-hook-form": "^7.34.2",
         "react-plaid-link": "^3.3.2",
         "react-redux": "^8.0.2",
