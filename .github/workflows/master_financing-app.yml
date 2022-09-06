@@ -23,7 +23,7 @@ jobs:
 
             - name: npm install, build, and test
               run: |
-                  yarn install
+                  yarn install --network-timeout 10000000
                   CI=false yarn build --if-present
 
             - name: Zip artifact for deployment
