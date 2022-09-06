@@ -15,7 +15,7 @@ import Recurring from './routes/recurring/recurring.component';
 import SignIn from './routes/sign-in/sign-in.component';
 import SignUp from './routes/sign-up/sign-up.component';
 
-// import { PrivateRoute } from './components/routes/PrivateRoute';
+// import { PrivateRoute } from aaf './components/routes/PrivateRoute';
 
 const App = () => {
     useEffect(() => {
