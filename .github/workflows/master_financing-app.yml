@@ -23,7 +23,7 @@ jobs:
 
             - name: yarn install and build
               run: |
-                  yarn install
+                  yarn install --network-timeout 100000
                   CI=false yarn build
 
             - name: Zip artifact for deployment
