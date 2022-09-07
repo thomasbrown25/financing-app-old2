@@ -51,7 +51,7 @@
             "react-app/jest"
         ]
     },
-    "proxy": "https://localhost:7021/",
+    "proxy": "https://financing-api.azurewebsites.net/",
     "browserslist": {
         "production": [
             ">0.2%",
