@@ -1,9 +1,10 @@
 import axios from 'axios';
+import env from 'react-dotenv';
 // import { LOGOUT } from '../actions/types';
 
 // Create an instance of axios
 export const api = axios.create({
-    baseURL: '/',
+    baseURL: 'https://financing-api.azurewebsites.net/',
     headers: {
         'Content-Type': 'application/json; charset=utf-8'
     }
